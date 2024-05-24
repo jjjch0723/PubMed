@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.XlsxMapper">
+
+	<insert id="xlsxtoDB" parameterType="com.vo.XlsxData">
+		insert into pubmed.journal_impact(journal_nm,issn,eissn) values (#{journal_nm},#{issn},#{eissn})
+	</insert>
+	
+	<select id ="getData" resultType="com.vo.XlsxData">
+		select issn,eissn from pubmed.journal_impact order by id asc
+	</select>
+	
+</mapper>

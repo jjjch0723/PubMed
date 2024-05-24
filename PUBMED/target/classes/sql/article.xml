@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ArticleMapper">
+
+	<insert id="insertAbbstoPMID" parameterType="com.vo.PmidVO">
+		INSERT INTO
+		pubmed.tb_article_cp_01 VALUES (#{jourid},#{abbr},#{title},#{pmid})
+	</insert>
+	
+	<select id="selectPMID" resultType="java.util.HashMap">
+        select pmid, jour_id from pubmed.tb_article_cp_01;
+    </select>
+    
+    <insert id="insertArticles" parameterType="com.vo.ArticleVO">
+        insert into pubmed.tb_article_nt_02 values (#{pmid},#{title},#{authors},#{date},#{pmcid},#{doi},#{abstracts},#{keywords},#{sTitles},#{sAuthors},#{sPmids},#{cTitles},#{cAuthors},#{cPmids},#{jourId})
+    </insert>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.JournalMapper">
+	
+	<select id="selectISSNfromMaster" resultType="java.util.HashMap">
+		SELECT jour_id,
+			CASE
+				WHEN issn is null or issn=''
+				THEN eissn
+				ELSE issn
+			END AS issn
+			FROM pubmed.tb_jour_mt_01
+			WHERE jour_id >= 'jour4640'
+			ORDER BY jour_id;
+	</select>
+	
+	<select id="getCountMaster" resultType="Integer">
+		SELECT COUNT(*) FROM
+		pubmed.tb_jour_mt_01;
+	</select>
+	
+	<insert id="insertJournals" parameterType="com.vo.JournalVO">
+		INSERT INTO
+		pubmed.tb_jour_nt_03 (
+		jour_id, authors, nlm_title_abbreviation,
+		titles, othertitles,
+		publication_startyear,
+		frequency_,
+		countryofpublication, publisher, latestpublisher, language_, issn,
+		coden, lccn, electroniclinks, mesh, otherid, nlm_id
+		) VALUES (
+		#{jourId}, #{authors}, #{nlmTitleAbbreviation}, #{titles},
+		#{otherTitles},
+		#{publicationStartYear},
+		#{frequency},
+		#{countryOfPublication}, #{publisher}, #{latestPublisher},
+		#{language}, #{issn},
+		#{coden}, #{lccn}, #{electronicLinks}, #{mesh},
+		#{otherId}, #{nlmId}
+		);
+	</insert>
+
+	<select id="selectNlmTitleAbbreviations" resultType="java.util.HashMap">
+		SELECT nlm_title_abbreviation, jour_id
+			FROM pubmed.tb_jour_nt_03 j3
+			WHERE nlm_title_abbreviation IS NOT NULL
+			AND jour_id >= 'jour2838'
+			ORDER BY jour_id ASC;
+	</select>
+
+</mapper>
